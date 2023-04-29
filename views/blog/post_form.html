@@ -1,0 +1,37 @@
+% rebase('base.html', title='Update post')
+
+<h1 class="lead my-4">Update: {{ res[0][1] }}</h1>
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <sup>title</sup>
+        <input
+            class="form-control"
+            type="text"
+            name="title"
+            value="{{ res[0][1] if res else '' }}"
+        />
+    </div>
+    <div class="mb-3">
+        <sup>story</sup>
+        <input
+            class="form-control"
+            type="text"
+            name="story"
+            value="{{ res[0][2] if res else '' }}"
+        />
+    </div>
+
+    <div class="form-control mb-3">
+        <sup>category</sup>
+        <input type="text" name="category" />
+        <input type="file" name="upload" />
+    </div>
+
+    <input
+        class="btn btn-sm my-2 btn-outline-primary"
+        value="submit"
+        type="submit"
+    />
+</form>
+
+<a class="btn btn-sm my-4 btn-outline-primary" href="/blog">View index blog</a>

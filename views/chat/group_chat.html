@@ -1,0 +1,68 @@
+ 
+ % rebase('base.html', title='chat group')
+
+<h1 class="lead my-4">WebSocket chat group</h1>
+<div class="card">
+    <div class="card-header">
+        <h3 class="lead">create story</h3>
+    </div>
+
+    <div class="card-body border-bottom py-3">
+        <form id="send-message" method="POST" enctype="multipart/form-data">
+
+            <div class="input-group mb-3">
+                <input
+                    class="form-control"
+                    name="story"
+                    id="message"
+                    type="text"
+                    value="message"
+                />
+
+                <input
+                    id="name"
+                    type="hidden"
+                    value="{{ who_is }}"
+                />
+
+                <input
+                    class="btn btn-sm my-2 btn-outline-primary"
+                    type="submit"
+                    value="Send"
+                />
+            </div>
+        </form>
+        
+        <hr>
+
+        <ul class="list-group list-group-flush" id="messages"></ul>
+
+        <hr>
+        
+        <sup>for messages</sup>
+        <ul class="list-group list-group-flush">
+            % for i in res:
+            <li class="list-group-item">{{ i[0] }}: {{ i[1] }}</li>
+            % end
+        </ul>
+
+    </div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script>
+$(document).ready(function () {
+  wsock = new WebSocket('ws://127.0.0.1:8080/chat/groupchat')
+  wsock.onmessage = function (evt) {
+    $('#messages').append('<li>' + evt.data + '</li>')
+  }
+  $('#send-message').submit(function () {
+    msg = $('#name').val() + ': ' + $('#message').val()
+    wsock.send(msg)
+    $('#message').val('').focus()
+    return false
+  })
+})
+</script>

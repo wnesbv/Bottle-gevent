@@ -1,0 +1,54 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+
+<script>
+$(document).ready(function () {
+    wsock = new WebSocket("http://127.0.0.1:8080/chat/websocket");
+    wsock.onmessage = function (evt) {
+        chat = JSON.parse(evt.data);
+        if (chat.msg){
+            $("#js_messages").append("<li class='list-group-item'>" + chat.msg + "<time class='ms-2'>" + new Date().toLocaleString() + "</time>" + "</li>");
+        } else {
+            $("#js_messages").append("<figure>" + "<img src=" + '/static/chat' + chat.fle + " width='64'/></figure>");
+        }
+
+    };
+    $("#send-msg").submit(function () {
+        msg = $("#msg").val();
+        send_str = {
+            msg: msg,
+        };
+        wsock.send(JSON.stringify(send_str));
+        $("#msg").val("").focus();
+        return false;
+    });
+    $("#send-img").submit(function () {
+        fle = $("input[type=file]").val().replace(/.*(\/|\\)/, "/{{user_list}}/");
+        send_str = {
+            fle: fle,
+        };
+        wsock.send(JSON.stringify(send_str));
+        $("#fle").val("").focus();
+        return false;
+    });
+});
+</script>
+
+<script>
+$(function() {
+    $('#upload-btn').click(function() {
+        form_data = new FormData($('#send-img')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/static/upload-chat',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                console.log('Success!');
+            },
+        });
+    });
+});
+</script>

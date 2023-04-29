@@ -1,0 +1,45 @@
+% rebase('base.html', title='Blog Page')
+
+<h1 class="lead">User post page</h1>
+
+<a class="btn btn-sm my-2 btn-outline-primary" href="/blog/post_form">
+    Create new post
+</a>
+
+% if res:
+<ul class="list-group list-group-flush">
+    % for item in res:
+    <li class="list-group-item">
+        <sup>id</sup>
+        {{ item[0] }}
+    <sup>user id</sup>
+    <h2>{{ item[6] }}</h2>
+    </li>
+    <li class="list-group-item">
+        <sup>post title</sup>
+        <h2>{{ item[1] }}</h2>
+    </li>
+    <sup>story</sup>
+    <li class="list-group-item">
+        <p>{{ item[2] }}</p>
+    </li>
+    % if item[3]:
+    <li class="list-group-item">
+        <img src="/{{ item[3] }}" width="64" alt="img" />
+    </li>
+    % end
+    <li>
+        <sup>generated</sup>
+        <span class="list-group-item">{{ item[4] }}</span>
+        % if item[3]:
+        <sup>changed</sup>
+        <span class="list-group-item">{{ item[5] }}</span>
+        % end
+    </li>
+    % end
+</ul>
+% else:
+<h5>Your blog is empty. Please, write first record!</h5>
+% end
+
+<a class="btn btn-sm my-2 btn-outline-primary" href="/">Ruturn to Index</a>

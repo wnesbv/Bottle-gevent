@@ -1,0 +1,71 @@
+% rebase('chat.html', title='chat')
+
+<h1 class="lead my-4">WebSocket chat example</h1>
+<div class="card">
+
+    <div class="card-header">
+        <h3 class="lead">create chat</h3>
+    </div>
+
+    <div class="card-body border-bottom py-3">
+
+        <sup>js messages</sup>
+        <ul id="js_messages" class="list-group list-group-flush"></ul>
+        <hr />
+        <sup>db messages</sup>
+        <ul id="db_messages" class="list-group list-group-flush">
+            % for i in res:
+            <li class="list-group-item">
+                % if i[1]:
+                <p>{{ i[0] }}: {{ i[1] }}</p>
+                <time>time: {{ i[4] }}</time>
+                % end
+                % if i[3]:
+                <img class="m-4" src="{{ i[3] }}" width="64" />
+                <time>time: {{ i[4] }}</time>
+                % end
+            </li>
+            % end
+        </ul>
+        <hr />
+
+        <form id="send-msg" method="POST">
+            <div class="input-group mb-3">
+                <input
+                    required
+                    id="msg"
+                    name="story"
+                    type="text"
+                    class="form-control vw-100"
+                />
+                <button
+                    type="submit"
+                    class="btn btn-sm my-2 btn-outline-primary"
+                >
+                    + message
+                </button>
+            </div>
+        </form>
+
+        <form id="send-img" method="POST" enctype="multipart/form-data">
+            <div class="form-control mb-3">
+                <input
+                    required
+                    id="fle"
+                    type="file"
+                    name="upload"
+                    class="form-control"
+                />
+                <button
+                    id="upload-btn"
+                    class="btn btn-sm my-2 btn-outline-primary"
+                >
+                    + picture
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+% include('chat/js_chat.html')

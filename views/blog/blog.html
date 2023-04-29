@@ -1,0 +1,71 @@
+% rebase('base.html', title='Blog list page')
+
+<h1 class="lead my-4">Blog page</h1>
+
+<a class="btn btn-sm my-2 btn-outline-primary" href="/blog/post-form">
+    Create new post
+</a>
+
+% if res:
+<ul class="list-group list-group-flush">
+    % for i in res:
+    <li class="list-group-item mt-2">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <span class="d-inline-block">
+                    <sup class="float-start">post id</sup>
+                    <a class="btn btn-sm btn-outline-primary m-2" href="/blog/{{ i[0] }}"
+                    {{ i[0] }}>{{ i[0] }}</a>
+                </span>
+                <span class="d-inline-block">
+                    <sup class="float-start">user id</sup>
+                    <a class="btn btn-sm btn-outline-primary m-2" href="/user/{{ i[0] }}"
+                    {{ i[6] }}>{{ i[6] }}</a>
+                </span>
+            </li>
+        </ul>
+
+        <sup>title</sup>
+        <a
+            class="btn btn-sm btn-outline-primary ms-2"
+            href="/blog/{{ i[0] }}"
+            >{{ i[1] }}</a
+        >
+        <a
+            class="btn btn-sm btn-outline-danger float-end"
+            href="/blog/post-delete/{{ i[0] }}"
+            >delete</a
+        >
+        <a
+            class="btn btn-sm btn-outline-danger float-end"
+            href="/blog/img-delete/{{ i[0] }}"
+            >img delete</a
+        >
+        <a
+            class="btn btn-sm btn-outline-primary mx-2 float-end"
+            href="/blog/post-form/{{ i[0] }}"
+            >edit</a
+        >
+        % if i[3]:
+        <img class="mx-2 float-end" src="{{ i[3] }}" width="64" alt="img" />
+        % end
+    </li>
+    <li class="list-group-item">
+        <span class="d-inline-block">
+        <sup class="float-start">generated</sup>
+        <span>{{ i[4] }}</span>
+        </span>
+        <span class="d-inline-block">
+        % if i[5]:
+        <sup class="float-start">changed</sup>
+        <span>{{ i[5] }}</span>
+        % end
+        </span>
+    </li>
+    % end
+</ul>
+% else:
+<h5>Your blog is empty. Please, write first record!</h5>
+% end
+
+<a class="btn btn-sm my-2 btn-outline-primary" href="/">Ruturn to index</a>

@@ -1,0 +1,63 @@
+% rebase('base.html', title='Useer list')
+
+<h1 class="lead my-4">User list</h1>
+
+<a class="btn btn-sm my-2 btn-outline-primary" href="/blog/post_form">
+    Create new user
+</a>
+
+% if res:
+<ul class="list-group list-group-flush">
+    % for i in res:
+    <li class="list-group-item mt-2">
+        <span class="d-inline-block">
+        <sup class="float-start">id</sup>
+        {{ i["id"] }}
+        </span>
+        <span class="d-inline-block">
+        <sup class="float-start">user name</sup>
+        <a
+            class="btn btn-sm btn-outline-primary m-2"
+            href="/user/{{ i['id'] }}"
+            >{{ i["name"] }}</a
+        >
+        </span>
+        <span class="d-inline-block">
+        <sup class="float-start">email</sup>
+        {{ i["mail"] }}
+        </span>
+        
+        <span class="d-inline-block">
+            <sup class="float-start">generated</sup>
+            <span>{{ i["generated"] }}</span>
+        </span>
+        % if i["changed"]:
+        <span class="d-inline-block">
+            <sup class="float-start">changed</sup>
+            <span>{{ i["changed"] }}</span>
+        </span>
+        % end
+
+    </li>
+    <li class="list-group-item">
+        <a
+            class="btn btn-sm btn-outline-primary float-end"
+            href="/blog/post-delete/{{ i['id'] }}"
+            >delete</a
+        >
+        <a
+            class="btn btn-sm btn-outline-primary mx-2 float-end"
+            href="/blog/post-form/{{ i['id'] }}"
+            >edit</a
+        >
+        % if i["upload"]:
+        <img class="mx-2 float-end" src="{{ i['upload'] }}" width="64" alt="img" />
+        % end
+    </li>
+    % end
+</ul>
+% else:
+<h5>Your blog is empty. Please, write first record!</h5>
+% end
+
+<a class="btn btn-sm my-2 btn-outline-primary" href="/">Ruturn to index</a>

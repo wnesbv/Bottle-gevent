@@ -1,0 +1,16 @@
+% rebase('base.html', title='Create new user')
+
+<h1>Create new user</h1>
+<form method="POST" enctype="multipart/form-data">
+    <sup>title</sup>
+    <input class="form-control" type="text" name="name" />
+
+    Category: <input type="text" name="category" /> 
+    Select a file: <input type="file" name="upload" />
+
+    <input
+        class="btn btn-sm my-2 btn-outline-primary"
+        value="submit"
+        type="submit"
+    />
+</form>

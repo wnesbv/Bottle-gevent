@@ -1,0 +1,35 @@
+% rebase('base.html', title='Blog detail page')
+
+<h1 class="lead my-4">Blog detail page</h1>
+% if res:
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <span>ID: {{ res[0][0] }}</span>
+    </li>
+    <li class="list-group-item">
+        <h4>Title: {{ res[0][1] }}</h4>
+    </li>
+    <li class="list-group-item">
+        <p>Story: {{ res[0][2] }}</p>
+    </li>
+    % if res[0][3]:
+    <figure>
+        <img src="{{ res[0][3] }}" alt="img" />
+    </figure>
+    % end
+</ul>
+% else:
+<span>Sorry, post from this ID not exist</span>
+% end
+<a
+    class="btn btn-sm my-4 btn-outline-primary"
+    href="/blog/post-form/{{ res[0][0] }}"
+    >Update to post</a
+>
+<a
+    class="btn btn-sm my-4 btn-outline-danger"
+    href="/blog/post-delete/{{ res[0][0] }}"
+    >post delete</a
+>
+
+<a class="page-link" href="/blog">View index blog</a>

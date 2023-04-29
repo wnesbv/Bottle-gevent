@@ -1,0 +1,6 @@
+gevent-websocket
+bottle
+bcrypt
+python-dotenv
+PyJWT
+
